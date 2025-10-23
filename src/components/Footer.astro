@@ -1,0 +1,137 @@
+---
+import { Mail, Github, Twitter, Rss } from "lucide-astro";
+import { SOCIAL_LINKS } from "../data/social";
+import { formatVersionDate } from "../utils/dates";
+
+const ICONS = {
+	mail: Mail,
+	github: Github,
+	twitter: Twitter,
+	rss: Rss,
+} as const;
+
+const versionStamp = `👾 sumit.ml v${formatVersionDate(new Date())}`;
+---
+
+<footer>
+	<div class="footer-content">
+		<p class="copyright">{versionStamp}</p>
+		<div class="social-links">
+			{
+				SOCIAL_LINKS.map((link) => {
+					const Icon = ICONS[link.icon];
+					const target = link.external ? "_blank" : undefined;
+					const rel = link.external ? "noopener noreferrer" : undefined;
+					return (
+						<a
+							href={link.href}
+							target={target}
+							rel={rel}
+							aria-label={link.label}
+							title={link.label}
+						>
+							<span class="sr-only">{link.label}</span>
+							<Icon aria-hidden="true" class="icon" strokeWidth={1.1} />
+						</a>
+					);
+				})
+			}
+		</div>
+	</div>
+</footer>
+
+<style>
+	footer {
+		margin-top: auto;
+		padding: 2em 1em;
+		opacity: 0.7;
+	}
+
+	.footer-content {
+		max-width: 720px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+
+	.copyright {
+		margin: 0;
+		font-size: 0.85em;
+	}
+
+	.social-links {
+		display: flex;
+		gap: 1em;
+		align-items: center;
+	}
+
+	.social-links a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--text-color);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.social-links a:hover {
+		color: var(--accent-purple);
+	}
+
+	.icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	@media (max-width: 720px) {
+		footer {
+			margin-top: 2.5em;
+			padding: 1.5em 1em;
+		}
+
+		.copyright {
+			font-size: 0.8em;
+		}
+
+		.icon {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		footer {
+			margin-top: 2em;
+			padding: 1.25em 0.75em;
+		}
+
+		.footer-content {
+			flex-direction: column;
+			text-align: center;
+			gap: 0.75em;
+		}
+
+		.copyright {
+			font-size: 0.75em;
+		}
+
+		.icon {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.copyright {
+			font-size: 0.7em;
+		}
+
+		.icon {
+			width: 14px;
+			height: 14px;
+		}
+	}
+</style>

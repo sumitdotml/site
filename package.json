@@ -1,0 +1,37 @@
+{
+	"name": "sumit.ml",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"lint": "eslint . --ext .astro,.ts,.tsx,.js,.jsx,.mjs,.cjs && echo '✓ Linting complete: No issues found'",
+		"lint:fix": "eslint . --ext .astro,.ts,.tsx,.js,.jsx,.mjs,.cjs --fix && echo '✓ Linting complete: All issues fixed.'",
+		"format": "prettier --check \"**/*.{astro,css,js,ts,tsx,json}\"",
+		"format:write": "prettier --write --log-level warn \"**/*.{astro,css,js,ts,tsx,json}\" && echo '✓ Formatting complete: All files formatted successfully!'"
+	},
+	"dependencies": {
+		"@astrojs/mdx": "^4.3.7",
+		"@astrojs/react": "^4.4.0",
+		"@astrojs/rss": "^4.0.12",
+		"@astrojs/sitemap": "^3.6.0",
+		"astro": "^5.14.7",
+		"lucide-astro": "^0.546.0",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"sharp": "^0.34.3"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^8.8.1",
+		"@typescript-eslint/parser": "^8.8.1",
+		"astro-eslint-parser": "^0.17.0",
+		"eslint": "^9.11.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-astro": "^0.34.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.6.2",
+		"prettier-plugin-astro": "^0.14.1"
+	}
+}

@@ -1,0 +1,94 @@
+---
+
+---
+
+<script>
+	declare global {
+		interface Window {
+			__codeEnhancerInitialized?: boolean;
+		}
+	}
+
+	(() => {
+		if (typeof window === "undefined" || window.__codeEnhancerInitialized) {
+			return;
+		}
+
+		window.__codeEnhancerInitialized = true;
+
+		const COPY_LABEL = "Copy";
+		const COPIED_LABEL = "Copied";
+
+		const COPY_ICON = `<svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+		const CHECK_ICON = `<svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+		const createButton = () => {
+			const button = document.createElement("button");
+			button.className = "copy-button";
+			button.type = "button";
+			button.setAttribute("aria-label", COPY_LABEL);
+			button.innerHTML = COPY_ICON + CHECK_ICON;
+			return button;
+		};
+
+		const createHeader = (language: string, button: HTMLButtonElement) => {
+			const header = document.createElement("div");
+			header.className = "code-block-header";
+
+			const label = document.createElement("span");
+			label.className = "code-language";
+			label.textContent = language.toUpperCase();
+
+			header.append(label, button);
+			return header;
+		};
+
+		const enhance = () => {
+			document.querySelectorAll("pre.astro-code").forEach((element) => {
+				const pre = element as HTMLPreElement;
+				if (pre.dataset.enhanced === "true" || !pre.parentNode) return;
+				pre.dataset.enhanced = "true";
+
+				const code = pre.querySelector("code");
+				if (!code) return;
+
+				const language =
+					pre.getAttribute("data-language") ||
+					pre.getAttribute("class")?.match(/language-(\w+)/)?.[1] ||
+					code.getAttribute("class")?.match(/language-(\w+)/)?.[1] ||
+					"code";
+
+				const wrapper = document.createElement("div");
+				wrapper.className = "code-block-wrapper";
+
+				const copyButton = createButton();
+				const header = createHeader(language, copyButton);
+
+				pre.parentNode.insertBefore(wrapper, pre);
+				wrapper.append(header, pre);
+				pre.style.borderRadius = "0";
+
+				copyButton.addEventListener("click", async () => {
+					try {
+						await navigator.clipboard.writeText(code.textContent || "");
+						copyButton.setAttribute("aria-label", COPIED_LABEL);
+						copyButton.classList.add("copied");
+						window.setTimeout(() => {
+							copyButton.setAttribute("aria-label", COPY_LABEL);
+							copyButton.classList.remove("copied");
+						}, 1500);
+					} catch (error) {
+						console.error("Failed to copy code:", error);
+					}
+				});
+			});
+		};
+
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", enhance, { once: true });
+		} else {
+			enhance();
+		}
+		document.addEventListener("astro:page-load", enhance);
+	})();
+</script>

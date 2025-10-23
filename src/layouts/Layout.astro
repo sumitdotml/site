@@ -1,0 +1,76 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import DateMeta from "../components/DateMeta.astro";
+import { SITE_TITLE } from "../consts";
+import "../styles/layout.css";
+
+interface Props {
+	title: string;
+	description?: string;
+	breadcrumbTitle?: string;
+	pubDate?: Date;
+	updatedDate?: Date;
+	date?: Date;
+	dateLabel?: string;
+	dateLabels?: {
+		published?: string;
+		updated?: string;
+		page?: string;
+	};
+}
+
+const {
+	title,
+	description = "",
+	breadcrumbTitle,
+	pubDate,
+	updatedDate,
+	date,
+	dateLabel,
+	dateLabels,
+} = Astro.props;
+
+const labels = {
+	published: dateLabels?.published ?? "Published:",
+	updated: dateLabels?.updated ?? "Updated:",
+	page: dateLabels?.page ?? dateLabel ?? "Last updated:",
+};
+
+const dateEntries = [
+	pubDate && { label: labels.published, value: pubDate },
+	updatedDate && { label: labels.updated, value: updatedDate },
+	!pubDate && date && { label: labels.page, value: date },
+].filter(Boolean) as Array<{ label?: string; value: Date }>;
+
+const pageTitle = pubDate ? title : `${title} | ${SITE_TITLE}`;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={pageTitle} description={description} />
+	</head>
+
+	<body>
+		<Header breadcrumbTitle={breadcrumbTitle} />
+		<main>
+			<article>
+				<div class="post-header">
+					<h1 class="post-title">{title}</h1>
+					{
+						dateEntries.length > 0 && (
+							<div class="post-dates">
+								{dateEntries.map(({ label, value }, index) => (
+									<DateMeta date={value} label={label} as="div" key={index} />
+								))}
+							</div>
+						)
+					}
+				</div>
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

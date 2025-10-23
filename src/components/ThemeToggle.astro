@@ -1,0 +1,91 @@
+---
+import { Sun, Moon } from "lucide-astro";
+---
+
+<button class="theme-toggle" aria-label="Toggle theme">
+	<Sun class="sun-icon icon" size={22} />
+	<Moon class="moon-icon icon" size={22} />
+</button>
+
+<style>
+	button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.55em;
+		color: var(--text-color);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: color 0.2s ease;
+		margin: 0;
+	}
+
+	button:hover {
+		color: var(--accent-purple);
+	}
+
+	.icon {
+		width: 22px;
+		height: 22px;
+	}
+
+	.sun-icon,
+	.moon-icon {
+		position: absolute;
+	}
+
+	/* Light mode: show moon, hide sun */
+	:global([data-theme="light"]) .sun-icon {
+		display: none;
+	}
+
+	/* Dark mode: show sun, hide moon */
+	:global([data-theme="dark"]) .moon-icon {
+		display: none;
+	}
+
+	@media (max-width: 720px) {
+		button {
+			padding: 0.5em;
+		}
+		.icon {
+			width: 21px;
+			height: 21px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		button {
+			padding: 0.3em;
+		}
+		.icon {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		button {
+			padding: 0.25em;
+		}
+		.icon {
+			width: 16px;
+			height: 16px;
+		}
+	}
+</style>
+
+<script>
+	const themeToggles = document.querySelectorAll(".theme-toggle");
+
+	themeToggles.forEach((themeToggle) => {
+		themeToggle.addEventListener("click", () => {
+			const currentTheme = document.documentElement.getAttribute("data-theme");
+			const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+			document.documentElement.setAttribute("data-theme", newTheme);
+			localStorage.setItem("theme", newTheme);
+		});
+	});
+</script>

@@ -1,0 +1,39 @@
+.post-header {
+	margin-bottom: 2em;
+}
+
+.post-title {
+	margin: 0 0 0.5em 0;
+	padding-top: 0;
+}
+
+.post-dates {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25em;
+	margin-top: 0.6em;
+}
+
+.post-dates :global(.date-meta) {
+	margin: 0;
+}
+
+@media (max-width: 720px) {
+	.post-header {
+		margin-bottom: 1.5em;
+	}
+	.post-dates {
+		gap: 1em;
+		margin-top: 0.5em;
+	}
+}
+
+@media (max-width: 480px) {
+	.post-header {
+		margin-bottom: 1.25em;
+	}
+	.post-dates {
+		gap: 0.85em;
+		margin-top: 0.45em;
+	}
+}

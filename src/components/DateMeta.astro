@@ -1,0 +1,52 @@
+---
+interface Props {
+	date: Date;
+	label?: string;
+	as?: "p" | "span" | "div";
+}
+
+const { date, label, as = "p" } = Astro.props;
+const Tag = as as any;
+const formatted = date.toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "short",
+	day: "numeric",
+});
+---
+
+<Tag class="date-meta">
+	{label && <span class="date-label">{label}</span>}
+	<time class="date-value" datetime={date.toISOString()}>{formatted}</time>
+</Tag>
+
+<style>
+	.date-meta {
+		margin: 0;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.35em;
+		font-size: 0.9em;
+		color: var(--text-color-muted);
+	}
+
+	.date-label {
+		font-weight: var(--font-weight-medium);
+		letter-spacing: 0.01em;
+	}
+
+	.date-value {
+		font-weight: var(--font-weight-regular);
+	}
+
+	@media (max-width: 720px) {
+		.date-meta {
+			font-size: 0.85em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.date-meta {
+			font-size: 0.8em;
+		}
+	}
+</style>
