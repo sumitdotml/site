@@ -1,0 +1,25 @@
+---
+interface Footnote {
+	id: string;
+	content: string;
+}
+
+interface Props {
+	notes: Footnote[];
+}
+
+const { notes } = Astro.props;
+---
+
+{
+	notes.length > 0 && (
+		<div class="footnotes-section">
+			{notes.map((note) => (
+				<div id={`footnote-${note.id}`} class="footnote-item">
+					<span class="footnote-number">[{note.id}]</span>
+					{note.content}
+				</div>
+			))}
+		</div>
+	)
+}

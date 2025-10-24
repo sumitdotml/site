@@ -15,10 +15,20 @@ const isHomePage = pathname === "" || pathname === "/";
 
 <header>
 	<nav>
-		<div class:list={["logo", { "hide-on-mobile": !isHomePage }]}>
+		<div
+			class:list={[
+				"logo",
+				{ "hide-on-mobile": !isHomePage, "hide-on-homepage": isHomePage },
+			]}
+		>
 			<a href="/">{HOME_ICON}</a>
 		</div>
-		<div class:list={["nav-links", { "show-on-mobile": isHomePage }]}>
+		<div
+			class:list={[
+				"nav-links",
+				{ "show-on-mobile": isHomePage, "nav-links-homepage": isHomePage },
+			]}
+		>
 			{
 				NAV_LINKS.map((link) => (
 					<HeaderLink href={link.href}>{link.label}</HeaderLink>
@@ -75,6 +85,14 @@ const isHomePage = pathname === "" || pathname === "/";
 
 	.show-on-mobile {
 		display: flex;
+	}
+
+	.hide-on-homepage {
+		display: none;
+	}
+
+	.nav-links-homepage {
+		margin-left: auto;
 	}
 
 	@media (max-width: 720px) {

@@ -43,7 +43,7 @@ h6 {
 
 .hero-title {
 	font-size: 2.6em;
-	padding: 1.8em 0 0 0;
+	padding: 1.8em 0 0.5em 0;
 	margin: 0;
 	color: var(--text-color);
 	line-height: 1.3;
@@ -306,7 +306,7 @@ li {
 	}
 	.hero-title {
 		font-size: 2.2em;
-		padding: 1.5em 0 0 0;
+		padding: 1.5em 0 0.5em 0;
 	}
 	h1 {
 		font-size: 1.76em;
@@ -371,7 +371,7 @@ li {
 	}
 	.hero-title {
 		font-size: 1.95em;
-		padding: 1.3em 0 0 0;
+		padding: 1.3em 0 0.5em 0;
 	}
 	h1 {
 		font-size: 1.56em;
@@ -421,6 +421,55 @@ li {
 	.check-icon {
 		width: 13px;
 		height: 13px;
+	}
+}
+
+.footnote-ref {
+	color: var(--accent-purple);
+	text-decoration: none;
+	font-size: 0.8em;
+	vertical-align: super;
+	margin-left: 0.1em;
+}
+
+.footnotes-section {
+	margin-top: 1em;
+	padding-top: none;
+	color: var(--text-color-light);
+	font-size: 0.95em;
+}
+
+.footnote-item {
+	margin-bottom: 1em;
+	font-size: 0.9em;
+	line-height: 1.6;
+}
+
+.footnote-number {
+	color: var(--accent-purple);
+	font-weight: normal;
+	margin-right: 0.5em;
+}
+
+@media (max-width: 720px) {
+	.footnotes-section {
+		margin-top: none;
+		padding-top: none;
+	}
+	.footnote-item {
+		font-size: 0.93em;
+		margin-bottom: 0.9em;
+	}
+}
+
+@media (max-width: 480px) {
+	.footnotes-section {
+		margin-top: none;
+		padding-top: none;
+	}
+	.footnote-item {
+		font-size: 0.92em;
+		margin-bottom: 0.8em;
 	}
 }
 
