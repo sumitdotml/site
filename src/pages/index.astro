@@ -6,6 +6,7 @@ import FootnoteRef from "../components/footnotes/FootnoteRef.astro";
 import Footnotes from "../components/footnotes/Footnotes.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import HR from "../components/HR.astro";
+import Link from "../components/Link.astro";
 
 const footnotes = [
 	{
@@ -27,7 +28,7 @@ const footnotes = [
 			<h1 class="hero-title">Hi, I'm Sumit</h1>
 			<p>Tokyo-based SWE, aspiring ML Researcher</p>
 			<img
-				src="/src/assets/placeholder-1.png"
+				src="/homepage-hero.png"
 				alt="Homepage Hero"
 				style="width: 22%; height: auto; border-radius: 4px; margin-bottom: 0em; object-fit: cover; object-position: center;"
 			/>
@@ -35,12 +36,10 @@ const footnotes = [
 			<p>
 				I'll add more stuff here later since I'm still migrating my site, but
 				thanks for checking in! I go into some ramblings and random tangents
-				about myself on my <a
+				about myself on my <Link
 					href="/about"
-					style="font-weight: var(--font-weight-semibold);"
-				>
-					about page
-				</a>, so if you want to read a little bit about me, that's a good place.
+					style="font-weight: var(--font-weight-semibold);">about page</Link
+				>, so if you want to read a little bit about me, that's a good place.
 			</p>
 			<p>
 				Right now, I'm particularly interested in LLMs, multilingual models, and
@@ -68,27 +67,21 @@ const footnotes = [
 				working on interesting problems and think having someone curious and
 				motivated alongside you could be mutually valuable, I'd love to chat.
 				All I ask for is the right environment to learn and contribute; nothing
-				more. <a
+				more. <Link
 					href="mailto:sumit@sumit.ml"
-					style="font-weight: var(--font-weight-semibold);"
-				>
-					Email
-				</a> or <a
+					style="font-weight: var(--font-weight-semibold);">Email</Link
+				> or <Link
 					href="https://twitter.com/sumitdotml"
-					style="font-weight: var(--font-weight-semibold);"
-				>
-					Twitter
-				</a> work best for me; I'll get back to you as soon as I can.
+					style="font-weight: var(--font-weight-semibold);">Twitter</Link
+				> work best for me; I'll get back to you as soon as I can.
 			</p>
 			<h3>Hmm... what else?</h3>
 			<p>
-				You can also check out my <a
+				You can also check out my <Link
 					href="/blog"
-					style="font-weight: var(--font-weight-semibold);"
-				>
-					blog
-				</a> for project updates and worklogs, or just throw me a message on the
-				aforementioned links if you wanna chat about stuff :)
+					style="font-weight: var(--font-weight-semibold);">blog</Link
+				> for project updates and worklogs, or just throw me a message on the aforementioned
+				links if you wanna chat about stuff :)
 			</p>
 
 			<HR weight="regular" colorStrength="subtle" />
