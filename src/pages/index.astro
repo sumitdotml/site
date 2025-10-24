@@ -9,25 +9,64 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.footnote-ref {
+				color: var(--accent-purple);
+				text-decoration: none;
+				font-size: 0.8em;
+				vertical-align: super;
+				margin-left: 0.1em;
+			}
+			.footnote-ref:hover {
+				text-decoration: underline;
+			}
+			.footnote-content {
+				margin-top: 1em;
+				font-size: 0.8em;
+			}
+			.footnote-number {
+				color: var(--accent-purple);
+				font-weight: normal;
+				margin-right: 0.5em;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<h1 class="hero-title">Hi, I'm Sumit</h1>
-			<p>I'm a software engineer and an aspiring ML researcher.</p>
+			<p>Tokyo-based SWE, aspiring ML Researcher</p>
 			<p>
-				I will add more stuff here later since I'm still in the middle of my site migration, but
-				thanks for checking in!
+				I'll add more stuff here later since I'm still migrating my site, but thanks for checking in! Feel free to check out my <a href="/about">about page</a> for more information about me.
 			</p>
-            <p>
-                If you want to read a little bit about me, check{" "}
-                <a href="/about">this</a>{" "}out.
+			<h3>Preface</h3>
 			<p>
-				You can always throw me a message on{" "}
-				<a href="https://twitter.com/sumitdotml">Twitter</a> or{" "}
-				<a href="mailto:sumit@sumit.ml">send me an email</a> if you have any questions
-				or wanna just chat about stuff :)
+				Right now, I'm particularly interested in LLMs, multilingual models, and low-resource language research.<a href="#footnote-1" class="footnote-ref">[1]</a>
 			</p>
+
+			<h3>Looking for Mentorship</h3>
+			<p>
+				I'm actively looking for mentorship in ML research! I'm particularly interested in LLM training, inference optimization, fine-tuning, and multilingual/low-resource language research—dataset curation, tokenization strategies, cross-lingual transfer, and model adaptation for underrepresented languages. That said, I'm genuinely open to exploring other areas of deep learning if the problems are compelling and the learning opportunity is strong. I'm still figuring out what I don't know, which is exactly why I want to work alongside someone doing real research. 
+			</p>
+			<p>
+				I learn best by getting my hands dirty: working on real problems, asking lots of questions, being comfortable being wrong, and gradually building intuition for the field. If you're working on interesting problems and think having someone curious and motivated alongside you could be mutually valuable, I'd love to chat. All I ask for is the right environment to learn and contribute; nothing more. So if you think we'd be a good fit, I'd love to work with you. <a href="mailto:sumit@sumit.ml">Email</a> or <a href="https://twitter.com/sumitdotml">Twitter</a> work best for me.
+			</p>
+			<p>
+				You can also check out my <a href="/blog">blog</a> for project updates and worklogs, or just throw me a message on the aforementioned links if you wanna chat about stuff :)
+			</p>
+
+			<div id="footnote-1" class="footnote-content">
+				<p>
+					<span class="footnote-number">[1]</span>Most NLP research focuses on English and a handful of high-resource languages, but when I look at the AI status quo in my own country, I see a gap worth filling. I'm fascinated by applying recent breakthroughs to languages without massive training data—through better cross-lingual transfer, smarter approaches to limited data, and systems that respect linguistic diversity.
+				</p>
+			</div>
+
+			<div id="footnote-2" class="footnote-content">
+				<p>
+					<span class="footnote-number">[2]</span>sample footnote
+				</p>
+			</div>
+
 		</main>
 		<Footer />
 	</body>
