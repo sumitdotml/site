@@ -2,71 +2,97 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import FootnoteRef from "../components/footnotes/FootnoteRef.astro";
+import Footnotes from "../components/footnotes/Footnotes.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import HR from "../components/HR.astro";
+
+const footnotes = [
+	{
+		id: "1",
+		content:
+			"Most NLP research focuses on English and a handful of high-resource languages, but when I look at the AI status quo in my own country, I see a gap that needs to be filled, and as somebody privileged enough to have access to more education and resources than many, I feel like it's only right that I do my part. I'm particularly fascinated by how we can leverage recent AI breakthroughs to build better technologies for low-resource languages (like the languages of my own country) without massive training data—through better cross-lingual transfer, smarter approaches to limited data, and systems that respect linguistic diversity.",
+	},
+];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			.footnote-ref {
-				color: var(--accent-purple);
-				text-decoration: none;
-				font-size: 0.8em;
-				vertical-align: super;
-				margin-left: 0.1em;
-			}
-			.footnote-ref:hover {
-				text-decoration: underline;
-			}
-			.footnote-content {
-				margin-top: 1em;
-				font-size: 0.8em;
-			}
-			.footnote-number {
-				color: var(--accent-purple);
-				font-weight: normal;
-				margin-right: 0.5em;
-			}
-		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<h1 class="hero-title">Hi, I'm Sumit</h1>
 			<p>Tokyo-based SWE, aspiring ML Researcher</p>
-			<p>
-				I'll add more stuff here later since I'm still migrating my site, but thanks for checking in! Feel free to check out my <a href="/about">about page</a> for more information about me.
-			</p>
+			<img
+				src="/src/assets/placeholder-1.png"
+				alt="Homepage Hero"
+				style="width: 22%; height: auto; border-radius: 4px; margin-bottom: 0em; object-fit: cover; object-position: center;"
+			/>
 			<h3>Preface</h3>
 			<p>
-				Right now, I'm particularly interested in LLMs, multilingual models, and low-resource language research.<a href="#footnote-1" class="footnote-ref">[1]</a>
+				I'll add more stuff here later since I'm still migrating my site, but
+				thanks for checking in! I go into some ramblings and random tangents
+				about myself on my <a
+					href="/about"
+					style="font-weight: var(--font-weight-semibold);"
+				>
+					about page
+				</a>, so if you want to read a little bit about me, that's a good place.
 			</p>
-
+			<p>
+				Right now, I'm particularly interested in LLMs, multilingual models, and
+				low-resource language research.<FootnoteRef id="1" />
+			</p>
 			<h3>Looking for Mentorship</h3>
 			<p>
-				I'm actively looking for mentorship in ML research! I'm particularly interested in LLM training, inference optimization, fine-tuning, and multilingual/low-resource language research—dataset curation, tokenization strategies, cross-lingual transfer, and model adaptation for underrepresented languages. That said, I'm genuinely open to exploring other areas of deep learning if the problems are compelling and the learning opportunity is strong. I'm still figuring out what I don't know, which is exactly why I want to work alongside someone doing real research. 
+				I'm actively looking for mentorship in ML research! I'm particularly
+				interested in LLM training, inference optimization, fine-tuning, and
+				multilingual/low-resource language research—dataset curation,
+				tokenization strategies, cross-lingual transfer, and model adaptation
+				for underrepresented languages. Now with that being said, I'm genuinely
+				open to exploring other areas of deep learning if the problems are
+				compelling and the learning opportunity is strong (which might be pretty
+				much every time if you're doing something interesting). I'm still
+				figuring out what I don't know right now, which is exactly why I want to
+				work alongside someone doing real research.
 			</p>
 			<p>
-				I learn best by getting my hands dirty: working on real problems, asking lots of questions, being comfortable being wrong, and gradually building intuition for the field. If you're working on interesting problems and think having someone curious and motivated alongside you could be mutually valuable, I'd love to chat. All I ask for is the right environment to learn and contribute; nothing more. So if you think we'd be a good fit, I'd love to work with you. <a href="mailto:sumit@sumit.ml">Email</a> or <a href="https://twitter.com/sumitdotml">Twitter</a> work best for me.
+				My battle-tested method to learn has always been to put myself under
+				immense pressure from where the only option is to survive via quick
+				learning and adaptation. I love learning by doing: working on real
+				problems, asking questions, being wrong, and building up intuition
+				alongside someone who knows what they're doing. Therefore, if you're
+				working on interesting problems and think having someone curious and
+				motivated alongside you could be mutually valuable, I'd love to chat.
+				All I ask for is the right environment to learn and contribute; nothing
+				more. <a
+					href="mailto:sumit@sumit.ml"
+					style="font-weight: var(--font-weight-semibold);"
+				>
+					Email
+				</a> or <a
+					href="https://twitter.com/sumitdotml"
+					style="font-weight: var(--font-weight-semibold);"
+				>
+					Twitter
+				</a> work best for me; I'll get back to you as soon as I can.
 			</p>
+			<h3>Hmm... what else?</h3>
 			<p>
-				You can also check out my <a href="/blog">blog</a> for project updates and worklogs, or just throw me a message on the aforementioned links if you wanna chat about stuff :)
+				You can also check out my <a
+					href="/blog"
+					style="font-weight: var(--font-weight-semibold);"
+				>
+					blog
+				</a> for project updates and worklogs, or just throw me a message on the
+				aforementioned links if you wanna chat about stuff :)
 			</p>
 
-			<div id="footnote-1" class="footnote-content">
-				<p>
-					<span class="footnote-number">[1]</span>Most NLP research focuses on English and a handful of high-resource languages, but when I look at the AI status quo in my own country, I see a gap worth filling. I'm fascinated by applying recent breakthroughs to languages without massive training data—through better cross-lingual transfer, smarter approaches to limited data, and systems that respect linguistic diversity.
-				</p>
-			</div>
-
-			<div id="footnote-2" class="footnote-content">
-				<p>
-					<span class="footnote-number">[2]</span>sample footnote
-				</p>
-			</div>
-
+			<HR weight="regular" colorStrength="subtle" />
+			<Footnotes notes={footnotes} />
 		</main>
 		<Footer />
 	</body>

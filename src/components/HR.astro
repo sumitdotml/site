@@ -1,0 +1,95 @@
+---
+/**
+ * HR Component - Flexible horizontal rule with customizable appearance
+ *
+ * Props:
+ * - colorStrength: Controls opacity/visibility
+ *   Options: "solid" (1.0) | "medium" (0.7) | "light" (0.5) | "muted" (0.3) | "subtle" (0.15)
+ *   Default: "medium"
+ *
+ * - weight: Controls line thickness
+ *   Options: "thin" (0.5px) | "regular" (1px) | "medium" (2px) | "thick" (3px) | "bold" (4px)
+ *   Default: "regular"
+ *
+ * - margin: Controls spacing around the line
+ *   Default: "2em 0"
+ *   Examples: "1em 0", "3em 0", "1.5em 0"
+ *
+ * - class: Additional CSS classes (optional)
+ *
+ * Usage Examples:
+ *
+ * 1. Default separator:
+ *    <HR />
+ *
+ * 2. Subtle content break (barely visible):
+ *    <HR weight="thin" colorStrength="subtle" />
+ *
+ * 3. Prominent section divider (strong, thick):
+ *    <HR weight="bold" colorStrength="solid" margin="3em 0" />
+ *
+ * 4. Light visual separator (delicate):
+ *    <HR weight="thin" colorStrength="light" margin="1.5em 0" />
+ *
+ * 5. Medium emphasis break:
+ *    <HR weight="medium" colorStrength="medium" />
+ *
+ * 6. Muted divider (subdued):
+ *    <HR weight="regular" colorStrength="muted" margin="2.5em 0" />
+ *
+ * 7. Bold statement separator (maximum emphasis):
+ *    <HR weight="bold" colorStrength="solid" />
+ *
+ * 8. Thin, solid line (clean, minimal):
+ *    <HR weight="thin" colorStrength="solid" margin="1em 0" />
+ *
+ * 9. Thick, muted divider (soft but noticeable):
+ *    <HR weight="thick" colorStrength="muted" margin="2em 0" />
+ */
+
+type ColorStrength = "solid" | "medium" | "light" | "muted" | "subtle";
+type Weight = "thin" | "regular" | "medium" | "thick" | "bold";
+
+interface Props {
+	colorStrength?: ColorStrength;
+	weight?: Weight;
+	margin?: string;
+	class?: string;
+}
+
+const {
+	colorStrength = "medium",
+	weight = "regular",
+	margin = "2em 0",
+	class: className = "",
+} = Astro.props;
+
+const colorMap: Record<ColorStrength, string> = {
+	solid: "1",
+	medium: "0.7",
+	light: "0.5",
+	muted: "0.3",
+	subtle: "0.15",
+};
+
+const weightMap: Record<Weight, string> = {
+	thin: "0.5px",
+	regular: "1px",
+	medium: "2px",
+	thick: "3px",
+	bold: "4px",
+};
+
+const opacity = colorMap[colorStrength];
+const thickness = weightMap[weight];
+---
+
+<hr
+	class={className}
+	style={`
+		border: none;
+		border-top: ${thickness} solid var(--text-color);
+		opacity: ${opacity};
+		margin: ${margin};
+	`}
+/>

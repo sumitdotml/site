@@ -12,6 +12,7 @@
 	--font-weight-bold: 700;
 
 	--text-color: #333333;
+	--text-color-light: #666666;
 	--text-color-muted: #999999;
 	--bg-color: #fafaf8;
 	--accent-purple: #8b5cf6;
@@ -21,7 +22,8 @@
 
 [data-theme="dark"] {
 	--text-color: #e5e5e5;
-	--text-color-muted: #a9a8a8;
+	--text-color-light: #b1b1b1;
+	--text-color-muted: #8c8c8c;
 	--bg-color: #140f0f;
 	--gray-light: 40, 40, 40;
 	--purple-light: 45, 35, 70;
