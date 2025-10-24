@@ -3,7 +3,7 @@ module.exports = {
 	useTabs: true,
 	singleQuote: false,
 	bracketSpacing: true,
-	htmlWhitespaceSensitivity: "ignore",
+	htmlWhitespaceSensitivity: "css",
 	plugins: ["prettier-plugin-astro"],
 	overrides: [
 		{

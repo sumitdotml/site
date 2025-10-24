@@ -92,6 +92,8 @@ b {
 a {
 	color: var(--text-color);
 	text-decoration: underline;
+	text-decoration-skip-ink: auto;
+	text-underline-offset: 0.15em;
 }
 
 a:hover {

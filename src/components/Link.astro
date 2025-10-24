@@ -1,0 +1,13 @@
+---
+interface Props {
+	href: string;
+	style?: string;
+	class?: string;
+}
+
+const { href, style, class: className } = Astro.props;
+const slot = await Astro.slots.render("default");
+const trimmedContent = slot.trim();
+---
+
+<a href={href} style={style} class={className} set:html={trimmedContent} />
