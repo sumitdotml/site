@@ -17,7 +17,7 @@ const { notes } = Astro.props;
 			{notes.map((note) => (
 				<div id={`footnote-${note.id}`} class="footnote-item">
 					<span class="footnote-number">[{note.id}]</span>
-					{note.content}
+					<span set:html={note.content} />
 				</div>
 			))}
 		</div>

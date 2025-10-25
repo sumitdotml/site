@@ -15,9 +15,18 @@
 	--text-color-light: #666666;
 	--text-color-muted: #999999;
 	--bg-color: #fafaf8;
+	--bg-color-rgb: 250, 250, 248;
 	--accent-purple: #8b5cf6;
 	--gray-light: 240, 240, 240;
 	--purple-light: 245, 243, 255;
+	/* NOTE TO SELF: these two variables below are used to control how much the browser
+	"blurs" whatever sits behind the navbar. for now, I will just keep the navbar's
+	background as a solid color, so these values are neutralized with 1 and 0px respectively
+	(effectively doing nothing). I thought creating this effect would be a bit too edgy,
+	so I'm not using it for now. but can easily be added back in if needed by tweaking
+	these. same goes for the dark theme below.*/
+	--header-overlay-alpha: 1;
+	--header-backdrop-blur: 0px;
 }
 
 [data-theme="dark"] {
@@ -25,7 +34,10 @@
 	--text-color-light: #b1b1b1;
 	--text-color-muted: #8c8c8c;
 	--bg-color: #140f0f;
+	--bg-color-rgb: 20, 15, 15;
 	--gray-light: 40, 40, 40;
 	--purple-light: 45, 35, 70;
 	--accent-purple: #ae8bff;
+	--header-overlay-alpha: 1;
+	--header-backdrop-blur: 0px;
 }
