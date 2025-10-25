@@ -13,7 +13,7 @@ const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const isHomePage = pathname === "" || pathname === "/";
 ---
 
-<header>
+<header data-site-header>
 	<nav>
 		<div
 			class:list={[
@@ -51,6 +51,19 @@ const isHomePage = pathname === "" || pathname === "/";
 		margin: 0;
 		padding: 0 1em;
 		background: transparent;
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		transition:
+			backdrop-filter 0.25s ease,
+			-webkit-backdrop-filter 0.25s ease,
+			opacity 0.25s ease;
+	}
+
+	header.scrolled {
+		background-color: rgba(var(--bg-color-rgb), var(--header-overlay-alpha));
+		backdrop-filter: blur(var(--header-backdrop-blur));
+		-webkit-backdrop-filter: blur(var(--header-backdrop-blur));
 	}
 
 	nav {
@@ -158,3 +171,19 @@ const isHomePage = pathname === "" || pathname === "/";
 		}
 	}
 </style>
+
+<script>
+	const headers = document.querySelectorAll("header[data-site-header]");
+
+	if (headers.length > 0) {
+		const toggleScrolled = () => {
+			const shouldAdd = window.scrollY > 0;
+			headers.forEach((headerEl) => {
+				headerEl.classList.toggle("scrolled", shouldAdd);
+			});
+		};
+
+		toggleScrolled();
+		window.addEventListener("scroll", toggleScrolled, { passive: true });
+	}
+</script>

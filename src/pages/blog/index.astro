@@ -4,7 +4,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import DateMeta from "../../components/DateMeta.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { BLOG_BASE_PAGE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import "../../styles/pages/blog.css";
 
 const posts = (await getCollection("blog")).sort(
@@ -15,7 +15,10 @@ const posts = (await getCollection("blog")).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title={`Blog | ${SITE_TITLE}`}
+			description={BLOG_BASE_PAGE_DESCRIPTION}
+		/>
 	</head>
 	<body>
 		<Header />
