@@ -1,13 +1,101 @@
 ---
+type FontWeight = "light" | "regular" | "medium" | "semibold" | "bold";
+type FontSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
+type ColorVariant = "default" | "accent" | "muted" | "light";
+type LetterSpacing = "tight" | "normal" | "wide" | "wider";
+type LineHeight = "tight" | "normal" | "relaxed" | "loose";
+
 interface Props {
 	href: string;
 	style?: string;
 	class?: string;
+	fontWeight?: FontWeight;
+	fontSize?: FontSize;
+	color?: ColorVariant;
+	underline?: boolean;
+	letterSpacing?: LetterSpacing;
+	lineHeight?: LineHeight;
+	target?: string;
+	rel?: string;
 }
 
-const { href, style, class: className } = Astro.props;
+const {
+	href,
+	style,
+	class: className,
+	fontWeight,
+	fontSize,
+	color,
+	underline,
+	letterSpacing,
+	lineHeight,
+	target,
+	rel,
+} = Astro.props;
+
 const slot = await Astro.slots.render("default");
 const trimmedContent = slot.trim();
+
+const fontWeightMap: Record<FontWeight, string> = {
+	light: "var(--font-weight-light)",
+	regular: "var(--font-weight-regular)",
+	medium: "var(--font-weight-medium)",
+	semibold: "var(--font-weight-semibold)",
+	bold: "var(--font-weight-bold)",
+};
+
+const fontSizeMap: Record<FontSize, string> = {
+	xs: "0.75em",
+	sm: "0.875em",
+	base: "1em",
+	lg: "1.125em",
+	xl: "1.25em",
+	"2xl": "1.5em",
+};
+
+const colorMap: Record<ColorVariant, string> = {
+	default: "var(--text-color)",
+	accent: "var(--accent-purple)",
+	muted: "var(--text-color-muted)",
+	light: "var(--text-color-light)",
+};
+
+const letterSpacingMap: Record<LetterSpacing, string> = {
+	tight: "-0.025em",
+	normal: "0",
+	wide: "0.05em",
+	wider: "0.1em",
+};
+
+const lineHeightMap: Record<LineHeight, string> = {
+	tight: "1.25",
+	normal: "1.5",
+	relaxed: "1.6",
+	loose: "2",
+};
+
+const dynamicStyles: string[] = [];
+
+if (fontWeight) dynamicStyles.push(`font-weight: ${fontWeightMap[fontWeight]}`);
+if (fontSize) dynamicStyles.push(`font-size: ${fontSizeMap[fontSize]}`);
+if (color) dynamicStyles.push(`color: ${colorMap[color]}`);
+if (letterSpacing)
+	dynamicStyles.push(`letter-spacing: ${letterSpacingMap[letterSpacing]}`);
+if (lineHeight) dynamicStyles.push(`line-height: ${lineHeightMap[lineHeight]}`);
+
+if (underline !== undefined) {
+	dynamicStyles.push(`text-decoration: ${underline ? "underline" : "none"}`);
+}
+
+const styleArray = [...dynamicStyles, style].filter(Boolean);
+const finalStyle = styleArray.length > 0 ? styleArray.join("; ") : style;
 ---
 
-<a href={href} style={style} class={className} set:html={trimmedContent} />
+<a
+	href={href}
+	style={finalStyle}
+	class={className}
+	target={target}
+	rel={rel}
+	set:html={trimmedContent}
+/>
