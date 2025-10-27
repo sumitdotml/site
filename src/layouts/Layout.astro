@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import DateMeta from "../components/DateMeta.astro";
 import { SITE_TITLE } from "../consts";
 import "../styles/layout.css";
+import type { ImageMetadata } from "astro";
 
 interface Props {
 	title: string;
@@ -19,6 +20,7 @@ interface Props {
 		updated?: string;
 		page?: string;
 	};
+	image?: ImageMetadata;
 }
 
 const {
@@ -30,6 +32,7 @@ const {
 	date,
 	dateLabel,
 	dateLabels,
+	image,
 } = Astro.props;
 
 const labels = {
@@ -49,7 +52,7 @@ const pageTitle = pubDate ? title : `${title} | ${SITE_TITLE}`;
 
 <html lang="en">
 	<head>
-		<BaseHead title={pageTitle} description={description} />
+		<BaseHead title={pageTitle} description={description} image={image} />
 	</head>
 
 	<body>
