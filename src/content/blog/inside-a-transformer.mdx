@@ -1,17 +1,16 @@
 ---
-title: 'Inside a Transformer'
-description: 'explaining to myself how transformer work by looking into its mechanics'
-breadcrumbTitle: 'Inside a Transformer'
+title: "Inside a Transformer"
+description: "explaining to myself how transformer work by looking into its mechanics"
+breadcrumbTitle: "Inside a Transformer"
+image: "../../assets/blog/inside-a-transformer/og.png"
 pubDate: 2025-10-28
-updatedDate: 2025-10-29
 dateLabels:
-    published: "Started: "
-    updated: "Last update: "
+  published: "Last updated: "
 ---
 
-> This is currently purely a worklog. Things are not formatted yet.
+import HR from "../../components/HR.astro";
 
-Reference I used for this was mainly this [Anthropic paper](https://transformer-circuits.pub/2021/framework/index.html) from 2021 & lots of QAs with Sonnet 4.5.
+> This is currently purely a worklog in progress. Things are not formatted yet.
 
 ### On residual stream as a communication channel
 
@@ -30,3 +29,7 @@ this is a residual stream
 reading = mainly `Q @ K^T`
 
 writing = `x = x + attn_output`
+
+<HR colorStrength="muted" />
+
+The reference I used for this was mainly this [Anthropic paper](https://transformer-circuits.pub/2021/framework/index.html) from 2021 & lots of Q/As with Sonnet 4.5.

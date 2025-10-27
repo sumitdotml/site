@@ -19,20 +19,22 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			dateLabels: dateLabelsSchema,
-			heroImage: image().optional(),
+			image: image().optional(),
 		}),
 });
 
 const pages = defineCollection({
 	loader: glob({ base: "./src/content/pages", pattern: "**/*.{md,mdx}" }),
-	schema: z.object({
-		title: z.string(),
-		description: z.string().optional(),
-		breadcrumbTitle: z.string().optional(),
-		date: z.coerce.date().optional(),
-		dateLabel: z.string().optional(),
-		dateLabels: dateLabelsSchema,
-	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string().optional(),
+			breadcrumbTitle: z.string().optional(),
+			date: z.coerce.date().optional(),
+			dateLabel: z.string().optional(),
+			dateLabels: dateLabelsSchema,
+			image: image().optional(),
+		}),
 });
 
 export const collections = { blog, pages };
