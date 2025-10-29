@@ -39,6 +39,12 @@ h6 {
 	color: var(--text-color);
 	line-height: 1.3;
 	font-weight: var(--font-weight-medium);
+	scroll-margin-top: 5em;
+}
+
+/* fyi, this is to add a scroll offset to all potential anchor targets with the id attribute */
+[id] {
+	scroll-margin-top: 5em;
 }
 
 .hero-title {
@@ -365,6 +371,15 @@ li {
 		font-size: 2.2em;
 		padding: 1.5em 0 0.5em 0;
 	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	[id] {
+		scroll-margin-top: 4em;
+	}
 	h1 {
 		font-size: 1.76em;
 		padding: 1.5em 0 0 0;
@@ -456,6 +471,15 @@ li {
 	.hero-title {
 		font-size: 1.95em;
 		padding: 1.3em 0 0.5em 0;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	[id] {
+		scroll-margin-top: 4.5em;
 	}
 	h1 {
 		font-size: 1.56em;
