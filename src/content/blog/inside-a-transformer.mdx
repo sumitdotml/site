@@ -351,16 +351,16 @@ Instead of thinking "first we transform by `W_V`, then later by `W_O`," we can t
 
 ### Update on the [questions](#questions) I asked myself earlier
 
-<p>
-  What is the attention weight trying to tell us? <br />
-  <a href="#intuition-on-attention-weights">I know now how to think about it</a>.
+<ol>
+  <li>What is the attention weight trying to tell us? <br />
+  => <a href="#intuition-on-attention-weights">I know now</a> how to think about it.</li>
 
-  There are batches of tokens that are being processed in parallel to get the output (input + output_proj, i.e., the updated "residual stream") from the MHA sub-layer of the transformer. How do I exactly visualize this? What happens sequentially? What happens in parallel? <br />
-  Need to get my head around this. I'm sure this is much simpler than I'm making it out to be. Will update this soon.
+  <li>There are batches of tokens that are being processed in parallel to get the output (input + output_proj, i.e., the updated "residual stream") from the MHA sub-layer of the transformer. How do I exactly visualize this? What happens sequentially? What happens in parallel? <br />
+  => Need to get my head around this. I'm sure this is much simpler than I'm making it out to be. <mark>Will update this soon.</mark></li>
 
-  Why do we need the output projection? What is the intuition behind it? <br />
-  This is basically how much to move the information forward based on the attention weights. Will update more details on this to come.
-</p>
+  <li>Why do we need the output projection? What is the intuition behind it? <br />
+  => This is basically how much to move the information forward based on the attention weights. <mark>Will update more details on this to come.</mark></li>
+</ol>
 
 > Still lots of questions to answer. Will update this as I go along.
 
