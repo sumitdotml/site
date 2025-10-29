@@ -4,11 +4,20 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 import { defineConfig } from "astro/config";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://sumit.ml",
-	integrations: [mdx(), sitemap(), react()],
+	integrations: [
+		mdx({
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [rehypeKatex],
+		}),
+		sitemap(),
+		react(),
+	],
 	markdown: {
 		shikiConfig: {
 			themes: {
@@ -18,5 +27,7 @@ export default defineConfig({
 			defaultColor: false,
 			wrap: false,
 		},
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [rehypeKatex],
 	},
 });

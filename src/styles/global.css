@@ -180,6 +180,12 @@ pre > code {
 	font-weight: var(--font-weight-regular);
 }
 
+pre.wrapped > code {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
 .code-block-wrapper {
 	position: relative;
 	margin: 1.5em 0;
@@ -276,6 +282,55 @@ pre > code {
 	display: block;
 }
 
+.wrap-button {
+	background: transparent;
+	border: 1px solid #313244;
+	color: #a6adc8;
+	padding: 0.4em;
+	border-radius: 6px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+	margin-right: 0.5em;
+}
+
+[data-theme="light"] .wrap-button {
+	border-color: #dce0e8;
+	color: #5c5f77;
+}
+
+.wrap-button:hover {
+	background-color: #313244;
+	border-color: #585b70;
+	color: #cdd6f4;
+}
+
+[data-theme="light"] .wrap-button:hover {
+	background-color: #e6e9ef;
+	border-color: #acb0be;
+	color: #4c4f69;
+}
+
+.wrap-button.active {
+	background-color: #89b4fa;
+	border-color: #89b4fa;
+	color: #1e1e2e;
+}
+
+[data-theme="light"] .wrap-button.active {
+	background-color: #1e66f5;
+	border-color: #1e66f5;
+	color: #eff1f5;
+}
+
+.wrap-icon {
+	width: 16px;
+	height: 16px;
+	display: block;
+}
+
 blockquote {
 	border-left: 3px solid var(--accent-purple);
 	padding: 0 0 0 20px;
@@ -353,6 +408,14 @@ li {
 		width: 14px;
 		height: 14px;
 	}
+	.wrap-button {
+		padding: 0.35em;
+		margin-right: 0.4em;
+	}
+	.wrap-icon {
+		width: 14px;
+		height: 14px;
+	}
 	blockquote {
 		font-size: 1em;
 		padding-left: 15px;
@@ -360,6 +423,25 @@ li {
 	}
 	table {
 		font-size: 0.9em;
+	}
+	.footnotes-section {
+		margin-top: none;
+		padding-top: none;
+	}
+	.footnote-item {
+		font-size: 0.93em;
+		margin-bottom: 0.9em;
+	}
+	.katex {
+		font-size: 0.95em !important;
+	}
+	.katex-display {
+		margin: 1.2em 0 !important;
+		padding: 0.4em 0;
+		-webkit-overflow-scrolling: touch;
+	}
+	.katex .arraycolsep {
+		width: 0.6em;
 	}
 }
 
@@ -424,6 +506,32 @@ li {
 		width: 13px;
 		height: 13px;
 	}
+	.wrap-button {
+		padding: 0.3em;
+		margin-right: 0.3em;
+	}
+	.wrap-icon {
+		width: 13px;
+		height: 13px;
+	}
+	.footnotes-section {
+		margin-top: none;
+		padding-top: none;
+	}
+	.footnote-item {
+		font-size: 0.92em;
+		margin-bottom: 0.8em;
+	}
+	.katex {
+		font-size: 0.85em !important;
+	}
+	.katex-display {
+		margin: 1em 0 !important;
+		padding: 0.3em 0;
+	}
+	.katex .arraycolsep {
+		width: 0.5em;
+	}
 }
 
 .footnote-ref {
@@ -453,28 +561,6 @@ li {
 	margin-right: 0.5em;
 }
 
-@media (max-width: 720px) {
-	.footnotes-section {
-		margin-top: none;
-		padding-top: none;
-	}
-	.footnote-item {
-		font-size: 0.93em;
-		margin-bottom: 0.9em;
-	}
-}
-
-@media (max-width: 480px) {
-	.footnotes-section {
-		margin-top: none;
-		padding-top: none;
-	}
-	.footnote-item {
-		font-size: 0.92em;
-		margin-bottom: 0.8em;
-	}
-}
-
 .sr-only {
 	border: 0;
 	padding: 0;
@@ -487,4 +573,39 @@ li {
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	white-space: nowrap;
+}
+
+.katex {
+	font-size: 1em !important;
+	font-family: var(--font-family-base) !important;
+	color: var(--text-color) !important;
+}
+
+.katex-display {
+	margin: 1.5em 0 !important;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0.5em 0;
+}
+
+.katex-display > .katex {
+	text-align: center;
+	white-space: nowrap;
+	min-width: min-content;
+}
+
+.katex .mathnormal,
+.katex .mathit,
+.katex .textrm,
+.katex .text {
+	font-family: var(--font-family-base) !important;
+	font-style: normal !important;
+}
+
+.katex .arraycolsep {
+	width: 0.8em;
+}
+
+.katex .mord.text {
+	font-family: var(--font-family-base) !important;
 }
