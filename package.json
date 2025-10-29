@@ -21,6 +21,8 @@
 		"lucide-astro": "^0.546.0",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"sharp": "^0.34.3"
 	},
 	"devDependencies": {
