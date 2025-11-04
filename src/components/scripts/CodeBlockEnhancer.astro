@@ -42,7 +42,11 @@
 			return button;
 		};
 
-		const createHeader = (language: string, wrapButton: HTMLButtonElement, copyButton: HTMLButtonElement) => {
+		const createHeader = (
+			language: string,
+			wrapButton: HTMLButtonElement,
+			copyButton: HTMLButtonElement,
+		) => {
 			const header = document.createElement("div");
 			header.className = "code-block-header";
 

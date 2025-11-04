@@ -1,0 +1,39 @@
+---
+title: "Residual Stream Roadtrip: Are We There Yet, Copy Head?"
+description: "mechanics behind copy heads across different layers and their importance"
+breadcrumbTitle: "Copy Heads in Transformers"
+image: ""
+pubDate: 2025-11-04
+dateLabels:
+  published: "Last updated: "
+---
+
+import { Image } from "astro:assets";
+import doNothing from "../../assets/blog/copy-heads/do-nothing.png";
+
+> WIP
+
+I've been looking into attention mechanics recently, and this is my list of questions I want to answer in relation to copy heads to document my understanding:
+
+1. Definitions: copy heads, the OV circuit, frobenius distance, identity matrix, singular value decomposition, etc.
+2. Background of all this:
+  - how did I reach to this point of thinking about copy heads?
+  - the essence of `W_OV`: why we need it, what it does, what it signifies (identity matrix relevance, wwhether there is transformation or whether the information from the incoming residual stream is merely getting put into the blender, when `W_OV` is essential: is it calculated at any point during training or inference?)
+3. Importance of copy heads across different layers
+  - how do I know when a head is a copy head? more formalized and comprehensive than the definition
+  - is a copy head in, say, layer 1, as important as that in, say, layer 12 of a transformer?
+  - is a copy head even essential at all? why don't we simply focus on transform heads?
+4. Do we not pass all the new features that are learned in specific heads (in turn specific layers) to the residual stream? Does this not mean the features are always there in the residual stream for, say, head 3 in layer 13 if it wants to look up the a specific feature information from, say, head 6 in layer 1? why specifically require a copy head here? (mostly to do with row specifications -> residual stream is like a spreadsheet of rows and columns -> what if we want the info on row 3 of head 1.6 when we are in row 42 of head 13.3? can't simply utilize the residual stream -> attention is how we copy info from a row to the other, no?)
+
+> All answers to be expanded with concrete examples (python, torch, visual diagrams).
+
+Got nerd sniped by copy heads; I couldn't stop thinking of this meme in the process & thought this applied to them lol
+
+<Image
+  src={doNothing}
+  alt="do-nothing-win"
+  width={400}
+  height={400}
+  priority
+  loading="eager"
+/>
