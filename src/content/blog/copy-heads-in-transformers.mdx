@@ -1,13 +1,14 @@
 ---
-title: "Residual Stream Roadtrip: Are We There Yet, Copy Head?"
+title: "Chasing Copy Heads in a Residual Streams Avenue"
 description: "mechanics behind copy heads across different layers and their importance"
 breadcrumbTitle: "Copy Heads in Transformers"
 image: ""
-pubDate: 2025-11-04
+pubDate: 2025-11-05
 dateLabels:
   published: "Last updated: "
 ---
 
+import HR from "../../components/HR.astro";
 import { Image } from "astro:assets";
 import doNothing from "../../assets/blog/copy-heads/do-nothing.png";
 
@@ -47,3 +48,36 @@ Got nerd sniped by copy heads; I couldn't stop thinking of this meme in the proc
   priority
   loading="eager"
 />
+
+<HR weight="bold" colorStrength="solid" />
+
+I found copy heads pretty interesting as I was going through some mechanical interpretability basics; I had jotted down some questions on a piece of paper for testing myself at the end of my learning to get a better intuition behind this concept, and I write this log answering all those questions as a reinforcement of my understanding.
+
+## Definitions
+
+Before diving into the mechanics behind copy heads across different transformer layers and their importance, some definitions are necessary to establish the foundations. Some key definitions coming up.
+
+### Copy heads
+
+Copy heads are attention heads. An attention head, in a transformer, exists inside a layer (or a block), and is a factor of the transformer's embedding dimension (`d_model` in the original transformer paper) that stores rich representations & semantic features during the training.
+
+
+
+> I need to add an illustration of a transformer block here\
+> and also an illustration of attention heads
+
+
+
+Let's assume that I have an input text called: _"I like hot"_.
+
+This is an input word, at the very start of the process, before any embeddings, before any forward passes.
+
+Parameters that I'd like to assume for the sake of this example:
+
+`batch` = 1 (since we have but a single sentence)\
+`seqlen` = 3 (sequence length the size of input text)\
+`d_model` = 32 (this will be the embedding dimension for every word, i.e., input token id)\
+`n_layers` = 8 (total number of transformer blocks)\
+`n_heads` = 4 (number of heads in each layer, factor of `d_model`, will expand more soon)
+
+...tbc
