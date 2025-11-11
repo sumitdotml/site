@@ -14,8 +14,9 @@ type Props = CollectionEntry<"pages">;
 
 const page = Astro.props;
 const { Content } = await render(page);
+const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 ---
 
-<Layout {...page.data}>
+<Layout {...page.data} slug={page.id} workerUrl={WORKER_URL}>
 	<Content />
 </Layout>
