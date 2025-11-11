@@ -13,8 +13,10 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 ---
 
-<Layout {...post.data}>
+<Layout {...post.data} slug={post.id} workerUrl={WORKER_URL}>
 	<Content />
 </Layout>

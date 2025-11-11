@@ -29,6 +29,13 @@
 	font-size: 1.25em;
 }
 
+.blog-page .post-meta {
+	display: flex;
+	align-items: center;
+	gap: 0.75em;
+	flex-wrap: wrap;
+}
+
 @media (max-width: 720px) {
 	.blog-page li {
 		margin-bottom: 1.5em;

@@ -10,7 +10,7 @@
 .post-dates {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1.25em;
+	gap: 0.75em;
 	margin-top: 0.6em;
 }
 
@@ -23,7 +23,6 @@
 		margin-bottom: 1.5em;
 	}
 	.post-dates {
-		gap: 1em;
 		margin-top: 0.5em;
 	}
 }
@@ -33,7 +32,6 @@
 		margin-bottom: 1.25em;
 	}
 	.post-dates {
-		gap: 0.85em;
 		margin-top: 0.45em;
 	}
 }

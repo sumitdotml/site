@@ -1,11 +1,12 @@
-# sumit.ml 
+# sumit.ml
 
 1. <a href="#why-i-built-this">Why I Built This</a>
 2. <a href="#using-this-code">Using This Code</a>
 3. <a href="#running-locally">Running Locally</a>
 4. <a href="#navigating-writing-content">Navigating & Writing Content</a>
 5. <a href="#development-commands">Development Commands</a>
-6. <a href="#deploying">Deploying</a>
+6. <a href="#view-counter-optional">View Counter (Optional)</a>
+7. <a href="#deploying">Deploying</a>
 
 Minimal site built with Astro. I mainly record my blog posts, research worklogs, and nonsense here.
 
@@ -64,6 +65,27 @@ I made this specifically to stay focused on learning and documenting my research
 | `npm run format` | Check code formatting with Prettier |
 | `npm run format:write` | Format all code with Prettier |
 
+## View Counter (Optional) <a id="view-counter-optional"></a>
+
+This site includes an optional blog post view counter powered by Cloudflare Workers and KV storage. It's completely optional and the site works perfectly fine without it.
+
+### Using the Site Without View Counter
+
+If you want to use this codebase but don't want the view counter functionality, you don't need to do anything. The view counter component gracefully handles missing configuration and won't display if the worker URL isn't set. The site will work exactly as expected without any view counts showing up.
+
+### Setting Up the View Counter (If You Want It)
+
+The view counter setup is intentionally complex with multiple security layers to prevent abuse to some degree. If you want to set it up, here's what you need:
+
+1. Deploy the Cloudflare Worker (instructions in [worker/README.md](worker/README.md))
+2. Configure required secrets and environment variables
+3. Set `PUBLIC_WORKER_URL` in your `.env` file
+
+For detailed setup instructions, security considerations, and implementation details, see:
+- [worker/README.md](worker/README.md) - Complete setup guide
+- [worker/CHANGELOG.md](worker/CHANGELOG.md) - Technical implementation details and security features
+
+The view counter includes rate limiting, IP-based deduplication, optional API authentication, and other security features that make it production-ready but admittedly overkill for a simple blog. If you just want view counts and don't care about the security complexities, you might want to use a simpler third-party service instead.
 
 ## Deploying <a id="deploying"></a>
 
