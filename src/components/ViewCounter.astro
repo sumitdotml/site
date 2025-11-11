@@ -1,0 +1,180 @@
+---
+/**
+ * ViewCounter component
+ *
+ * Displays view count for a blog post and increments the count on page load.
+ * Uses Cloudflare Worker API for persistence.
+ */
+
+interface Props {
+	slug: string;
+	workerUrl?: string;
+	readOnly?: boolean; // if true, only fetches count without incrementing
+}
+
+const {
+	slug,
+	workerUrl = import.meta.env.PUBLIC_WORKER_URL,
+	readOnly = false,
+} = Astro.props;
+const workerApiKey = import.meta.env.PUBLIC_VIEW_COUNTER_API_KEY ?? "";
+---
+
+<div
+	class="view-counter"
+	data-slug={slug}
+	data-worker-url={workerUrl}
+	data-read-only={readOnly.toString()}
+	data-worker-api-key={workerApiKey}
+>
+	<span class="view-separator" aria-hidden="true">•</span>
+	<span class="view-count" aria-label="View count">
+		<span class="view-count-number">--</span>
+	</span>
+</div>
+
+<script>
+	const isLocalEnvironment = () => {
+		const { hostname, port } = window.location;
+
+		if (!hostname) {
+			return false;
+		}
+
+		const normalizedHost = hostname.toLowerCase();
+		const localHostnames = ["localhost", "127.0.0.1", "0.0.0.0", "[::1]"];
+
+		if (localHostnames.includes(normalizedHost)) {
+			return true;
+		}
+
+		if (
+			normalizedHost.endsWith(".local") ||
+			normalizedHost.includes("localhost")
+		) {
+			return true;
+		}
+
+		if (port && port !== "80" && port !== "443") {
+			return true;
+		}
+
+		return false;
+	};
+
+	async function trackAndDisplayViews() {
+		const containers = document.querySelectorAll(".view-counter");
+
+		containers.forEach(async (container) => {
+			const slug = container.getAttribute("data-slug");
+			const workerUrl = container.getAttribute("data-worker-url");
+			const readOnly = container.getAttribute("data-read-only") === "true";
+			const workerApiKey = container.getAttribute("data-worker-api-key") || "";
+			const numberElement = container.querySelector(".view-count-number");
+
+			if (!slug || !workerUrl || !numberElement) return;
+
+			// prefix dev/localhost slugs so they're stored separately
+			const prefixedSlug = isLocalEnvironment() ? `local-${slug}` : slug;
+
+			// checks if user has already viewed this post recently (24 hours)
+			const viewKey = `viewed_${prefixedSlug}`;
+			const lastViewed = localStorage.getItem(viewKey);
+			const now = Date.now();
+			const twentyFourHours = 24 * 60 * 60 * 1000;
+
+			// if read-only mode (e.g., on listing page), never increments
+			// otherwise, checks if viewed within last 24 hours
+			const shouldIncrement =
+				!readOnly &&
+				(!lastViewed || now - parseInt(lastViewed) > twentyFourHours);
+
+			try {
+				// increments the view count only if not recently viewed
+				const method = shouldIncrement ? "POST" : "GET";
+				const response = await fetch(`${workerUrl}/views/${prefixedSlug}`, {
+					method: method,
+					headers: {
+						"Content-Type": "application/json",
+						...(workerApiKey ? { "X-Worker-Api-Key": workerApiKey } : {}),
+					},
+				});
+
+				if (!response.ok) {
+					throw new Error("Failed to fetch view count");
+				}
+
+				const data = await response.json();
+
+				// marks as viewed if we incremented
+				if (shouldIncrement) {
+					localStorage.setItem(viewKey, now.toString());
+				}
+
+				// hides the counter if 0 views
+				if (data.views === 0) {
+					if (container instanceof HTMLElement) {
+						container.style.display = "none";
+					}
+					return;
+				}
+
+				const formattedCount = new Intl.NumberFormat("en-US").format(
+					data.views,
+				);
+
+				const label = data.views === 1 ? "read" : "reads";
+				numberElement.textContent = `${formattedCount} ${label}`;
+
+				// shows the counter once data is ready
+				container.classList.add("loaded");
+			} catch (error) {
+				console.error("Error tracking views:", error);
+			}
+		});
+	}
+
+	trackAndDisplayViews();
+
+	document.addEventListener("astro:page-load", trackAndDisplayViews);
+</script>
+
+<style>
+	.view-counter {
+		display: none;
+		align-items: baseline;
+		gap: 0.75em;
+		font-size: 0.9em;
+		color: var(--text-color-muted);
+		font-weight: var(--font-weight-regular);
+	}
+
+	.view-counter.loaded {
+		display: inline-flex;
+	}
+
+	.view-separator {
+		user-select: none;
+	}
+
+	.view-count {
+		display: inline-flex;
+		align-items: baseline;
+	}
+
+	.view-count-number {
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media (max-width: 720px) {
+		.view-counter {
+			font-size: 0.85em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.view-counter {
+			font-size: 0.8em;
+		}
+	}
+</style>

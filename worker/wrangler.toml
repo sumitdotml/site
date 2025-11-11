@@ -1,0 +1,8 @@
+name = "blog-view-counter"
+main = "view-counter.js"
+compatibility_date = "2025-11-11"
+
+[[kv_namespaces]]
+binding = "BLOG_VIEWS"
+id = "26325d504c8c4c1b9f297b5edd95b1ad"
+preview_id = "b55abaf06136477ab3fd4c5c31f7f658"

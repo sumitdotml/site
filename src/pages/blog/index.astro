@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import DateMeta from "../../components/DateMeta.astro";
+import ViewCounter from "../../components/ViewCounter.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { BLOG_BASE_PAGE_DESCRIPTION, SITE_TITLE } from "../../consts";
@@ -10,6 +11,8 @@ import "../../styles/pages/blog.css";
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL ?? "";
 ---
 
 <!doctype html>
@@ -31,7 +34,14 @@ const posts = (await getCollection("blog")).sort(
 							<a href={`/blog/${post.id}/`}>
 								<h2 class="post-title">{post.data.title}</h2>
 							</a>
-							<DateMeta date={post.data.pubDate} as="div" />
+							<div class="post-meta">
+								<DateMeta date={post.data.pubDate} as="span" />
+								<ViewCounter
+									slug={post.id}
+									workerUrl={WORKER_URL}
+									readOnly={true}
+								/>
+							</div>
 						</li>
 					))
 				}

@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import DateMeta from "../components/DateMeta.astro";
+import ViewCounter from "../components/ViewCounter.astro";
 import { SITE_TITLE } from "../consts";
 import "../styles/layout.css";
 import type { ImageMetadata } from "astro";
@@ -21,6 +22,8 @@ interface Props {
 		page?: string;
 	};
 	image?: ImageMetadata;
+	slug?: string; // for view tracking
+	workerUrl?: string; // optional: custom worker URL
 }
 
 const {
@@ -33,6 +36,8 @@ const {
 	dateLabel,
 	dateLabels,
 	image,
+	slug,
+	workerUrl,
 } = Astro.props;
 
 const labels = {
@@ -67,6 +72,7 @@ const pageTitle = pubDate ? title : `${title} | ${SITE_TITLE}`;
 								{dateEntries.map(({ label, value }, index) => (
 									<DateMeta date={value} label={label} as="div" key={index} />
 								))}
+								{slug && <ViewCounter slug={slug} workerUrl={workerUrl} />}
 							</div>
 						)
 					}
