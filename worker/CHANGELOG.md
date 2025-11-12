@@ -4,6 +4,39 @@ All notable changes to the blog view counter implementation are documented in th
 
 ---
 
+## [November 2025 - Latest] - Localhost Behavior Update
+
+### Changed
+
+**ViewCounter Component - Localhost Handling**
+- Localhost now skips ALL API calls to the Cloudflare Worker
+- Displays "-- reads (dev)" instead of actual view counts in development
+- No KV entries created for localhost views (previously created with `local-` prefix)
+- Prevents pollution of KV storage and reduces API quota usage during development
+- Removed `local-` slug prefixing logic (no longer needed)
+
+**Removed**
+- `scripts/cleanup-localhost-views.sh` - No longer needed since localhost doesn't create KV entries
+- `scripts/setup-git-hooks.sh` - No longer needed
+- `.git/hooks/pre-push` - No longer needed since there are no localhost views to clean up
+
+### Migration Notes
+
+**For existing users:**
+- If you have old `views:local-*` entries in your KV from before this update, you can manually delete them using:
+  ```bash
+  wrangler kv key delete "views:local-{slug}" --binding=BLOG_VIEWS
+  ```
+- Or leave them - they won't interfere with production counts
+
+**Benefits:**
+- Faster local development (no network calls)
+- No KV storage consumption during development
+- Cleaner separation between dev and production data
+- No need for cleanup scripts or git hooks
+
+---
+
 ## [November 2025] - Security & Code Quality Improvements
 
 ### Added
@@ -53,7 +86,7 @@ All notable changes to the blog view counter implementation are documented in th
 - Detects: .local domains (Bonjour/mDNS)
 - Detects: hostnames containing 'localhost'
 - Detects: non-standard ports (anything other than 80/443)
-- Local environment views automatically prefixed with 'local-' to isolate from production data
+- Local environments skip all API calls and display "-- reads (dev)" instead
 
 **IP Detection**
 - CF-Connecting-IP header (primary)
@@ -76,9 +109,6 @@ All notable changes to the blog view counter implementation are documented in th
 **Error Handling**
 - Simplified catch block to only log errors (component stays hidden on error)
 - Generic error messages to prevent information leakage
-
-**Git Hooks**
-- Refactored pre-push hook to call `cleanup-localhost-views.sh` script
 
 ### Security Improvements
 
@@ -204,7 +234,6 @@ All notable changes to the blog view counter implementation are documented in th
 - `views:{slug}` - View count storage
 - `dedup:{slug}:{hash}` - Deduplication markers (24-hour TTL)
 - `ratelimit:{ip}:{window}` - Rate limit counters (60-second TTL)
-- `local-{slug}` - Development environment view counts
 
 ### API Endpoints
 
