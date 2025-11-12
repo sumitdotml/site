@@ -74,8 +74,14 @@ const workerApiKey = import.meta.env.PUBLIC_VIEW_COUNTER_API_KEY ?? "";
 
 			if (!slug || !workerUrl || !numberElement) return;
 
-			// prefix dev/localhost slugs so they're stored separately
-			const prefixedSlug = isLocalEnvironment() ? `local-${slug}` : slug;
+			// skipping API calls in local development
+			if (isLocalEnvironment()) {
+				numberElement.textContent = "-- reads (dev)";
+				container.classList.add("loaded");
+				return;
+			}
+
+			const prefixedSlug = slug;
 
 			// checks if user has already viewed this post recently (24 hours)
 			const viewKey = `viewed_${prefixedSlug}`;
