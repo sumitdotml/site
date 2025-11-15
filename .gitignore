@@ -27,3 +27,8 @@ worker/.dev.vars
 
 # wrangler
 .wrangler/
+
+# uv
+uv.lock
+pyproject.toml
+.python-version

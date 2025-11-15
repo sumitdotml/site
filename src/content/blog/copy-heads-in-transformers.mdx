@@ -59,16 +59,20 @@ Before diving into the mechanics behind copy heads across different transformer 
 
 ### Copy heads
 
-Copy heads are attention heads. An attention head, in a transformer, exists inside a layer (or a block), and is a factor of the transformer's embedding dimension (`d_model` in the original transformer paper) that stores rich representations & semantic features during the training.
+Copy heads are attention heads that are identity matrices or are close to being identity matrices. Inside a multi-head attention phase, we split the embedded dimensions into specific number of heads and do a parallel computation: in each head, we calculate the attention weights, do a matmul between attention weights and the `V` (here `V = x @ W_V`) to calculate attention output and then when we do another matmul between the attention output matrix and a projection matrix `W_O`, we get what we call an `output projection`.
 
+Sometimes, an attention head barely transforms any information that it receives from the [residual stream](../inside-a-transformer); what it outputs could simply be a copy (or close to a copy) of what it receives from the residual stream. This sort of an attention head is called a copy head.
 
+In order to get a clear picture behind a copy head, I think it's a good idea to get a quick refresher behind how we reach the point of an attention head.
+
+### Refresher: How did we reach this rabbit hole?
+
+An attention head, in a transformer, exists inside a layer (or a block), and is a factor of the transformer's embedding dimension (`d_model` in the original transformer paper) that stores rich representations & semantic features during the training.
 
 > I need to add an illustration of a transformer block here\
 > and also an illustration of attention heads
 
-
-
-Let's assume that I have an input text called: _"I like hot"_.
+Let's assume that I have an `input_text` called: _"I like hot"_.
 
 This is an input word, at the very start of the process, before any embeddings, before any forward passes.
 
@@ -80,4 +84,35 @@ Parameters that I'd like to assume for the sake of this example:
 `n_layers` = 8 (total number of transformer blocks)\
 `n_heads` = 4 (number of heads in each layer, factor of `d_model`, will expand more soon)
 
-In a transformer,
+In a transformer, the `input_text` gets tokenized, which is simply a method to assign unique numeric representation to words or characters. Tokenization can be done via various methods, and not all of them break down a sequence of words (i.e., the `input_text here`) 1:1 into tokens but for the sake of this worklog, let me assume that each word from the `input_text` above corresponds to 1 token, kind of like:
+
+```python
+tokenizer = {
+    "I": 1,
+    "like": 2,
+    "hot": 3,
+} # a simple lookup table
+```
+
+This is still, to some extent, an oversimplification, but let's think of tokenization as a step where we create a lookup table (like a dictionary) of words (i.e., tokens) and their unique `IDs`.
+
+At this point, if we think of this input sequence of unique token IDs as a tensor, it would be:
+
+```python
+tokens = torch.tensor([1, 2, 3])
+tokens.shape # torch.Size([3])
+```
+
+Transformers do computation parallelly in batches, so generally, inputs are tokenized in batches as well. Basically, a single 'batch' represents a collection of tokens, and in a normal LLM, during training, there are countless number of batches, and each batch holds an enormous size of text (tons of sentences). In our case, since we have but just `input_text`, we are assuming that we have 1 batch, and that means our sequence length will be the length of our tokens, i.e., 3.
+
+So I unsqueeze the `tokens` to better represent it as `[batch, seqlen]`:
+
+```python
+tokens = tokens.unsequeeze(0)
+tokens # torch.tensor([[1, 2, 3]])
+tokens.shape # torch.Size([1, 3])
+```
+
+So this new `tokens` represents the tokenized text that has 1 batch, and the batch's sequence length is 3.
+
+Moving on, we (tbc)
