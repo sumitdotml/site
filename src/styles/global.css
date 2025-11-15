@@ -10,7 +10,7 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--text-color);
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 1.6;
 	min-height: 100vh;
 	display: flex;
@@ -22,7 +22,7 @@ body {
 }
 
 main {
-	width: 720px;
+	width: 800px;
 	max-width: calc(100% - 2em);
 	margin: 0 auto;
 	padding: 5em 1em 3em;
@@ -361,7 +361,7 @@ li {
 
 @media (max-width: 720px) {
 	body {
-		font-size: 16px;
+		font-size: 15px;
 		line-height: 1.7;
 	}
 	main {
@@ -409,7 +409,7 @@ li {
 		font-size: 0.8em;
 	}
 	code {
-		font-size: 0.9em;
+		font-size: 0.85em;
 	}
 	.code-block-header {
 		padding: 0.35em 0.75em;
@@ -462,7 +462,7 @@ li {
 
 @media (max-width: 480px) {
 	body {
-		font-size: 15px;
+		font-size: 14px;
 		line-height: 1.7;
 	}
 	main {
@@ -507,7 +507,7 @@ li {
 	}
 	pre > code {
 		padding: 0.5em;
-		font-size: 0.75em;
+		font-size: 0.85em;
 	}
 	code {
 		font-size: 0.85em;
